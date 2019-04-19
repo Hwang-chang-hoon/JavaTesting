@@ -1,0 +1,11 @@
+package codetesting;
+
+public class CodeTesting {
+
+	public static void main(String[] args) {
+		boolean stop = true;
+		stop=0;
+
+	}
+
+}
