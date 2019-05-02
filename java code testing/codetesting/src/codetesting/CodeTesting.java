@@ -1,0 +1,14 @@
+package codetesting;
+
+public class CodeTesting {
+
+	public static void main(String[] args) {
+		int a=0, dan=0;
+		for(dan=1;dan<=9;dan++) {
+			for(a=1;a<=9;a++) {
+				System.out.println(dan+"x"+a+"="+a*dan);
+			}
+		}
+	}
+
+}
