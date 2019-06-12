@@ -7,13 +7,14 @@ public class Playing {
 		int a;// 첫번째 if문
 		int b;// 두번째 if문
 		int c;// 세번째 if문
-		int d;//공격방식
+		int d;// 공격방식
 		int att;// 공격
 		int hp = 500;// 체력
-		int tr = 3;//보물
-		int oil = 10;//연료
-		int str = 50;//공격력
-		while(hp>=0) {
+		int tr = 3;// 보물
+		int oil = 10;// 연료
+		int str = 50;// 공격력
+		int power = 0;// 강화횟수
+		while (hp >= 0) {
 			System.out.println("게임 스타트");
 			System.out.println("1:실행 2 종료");
 			Scanner num = new Scanner(System.in);
@@ -24,14 +25,14 @@ public class Playing {
 				System.out.println("실행합니다.");
 				try {
 					Thread.sleep(500);
-				}catch (InterruptedException e) {
+				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				System.out.println("합선을 선택해주세요");
 				try {
 					Thread.sleep(500);
-				}catch (InterruptedException e) {
+				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -41,19 +42,19 @@ public class Playing {
 				// 구축 순양선택
 
 				if (b == 1) {
-					int sup=5;//어뢰
+					int sup = 5;// 어뢰
 					System.out.println("구축함을 선책하셨습니다.");
 					while (hp > 0) {
 						try {
 							Thread.sleep(500);
-						}catch (InterruptedException e) {
+						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						System.out.println("무엇을 하시겠습니까?");
 						try {
 							Thread.sleep(500);
-						}catch (InterruptedException e) {
+						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
@@ -72,28 +73,28 @@ public class Playing {
 							if (data == 1) {
 								try {
 									Thread.sleep(500);
-								}catch (InterruptedException e) {
+								} catch (InterruptedException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								System.out.println("적과 조우하였습니다.");
 								try {
 									Thread.sleep(500);
-								}catch (InterruptedException e) {
+								} catch (InterruptedException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								System.out.println("전투 준비");
 								try {
 									Thread.sleep(500);
-								}catch (InterruptedException e) {
+								} catch (InterruptedException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								System.out.println("전투는 가위, 바위, 보로 이루어집니다.");
 								try {
 									Thread.sleep(500);
-								}catch (InterruptedException e) {
+								} catch (InterruptedException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
@@ -101,24 +102,24 @@ public class Playing {
 								do {
 									try {
 										Thread.sleep(500);
-									}catch (InterruptedException e) {
+									} catch (InterruptedException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 									System.out.println("1:기본공격 2:특수공격");
 									Scanner num111 = new Scanner(System.in);
-									d=num111.nextInt();
-									if(d==1) {
+									d = num111.nextInt();
+									if (d == 1) {
 										try {
 											Thread.sleep(500);
-										}catch (InterruptedException e) {
+										} catch (InterruptedException e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
 										System.out.println("내구축함 :" + hp + "적구축함" + Ehp);
 										try {
 											Thread.sleep(500);
-										}catch (InterruptedException e) {
+										} catch (InterruptedException e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
@@ -132,113 +133,110 @@ public class Playing {
 											System.out.println("비기셨습니다.");
 											try {
 												Thread.sleep(500);
-											}catch (InterruptedException e) {
+											} catch (InterruptedException e) {
 												// TODO Auto-generated catch block
 												e.printStackTrace();
 											}
 											System.out.println("내구축함 :" + hp + "적구축함" + Ehp);
-										} else if ((att == 1 && com == 2) || (att == 2 && com == 3) || (att == 3 && com == 1)) {
+										} else if ((att == 1 && com == 2) || (att == 2 && com == 3)
+												|| (att == 3 && com == 1)) {
 											System.out.println("지셨습니다.");
 											hp = hp - 50;
 											try {
 												Thread.sleep(500);
-											}catch (InterruptedException e) {
+											} catch (InterruptedException e) {
 												// TODO Auto-generated catch block
 												e.printStackTrace();
 											}
 											System.out.println("내구축함 :" + hp + "적구축함" + Ehp);
-										} else if ((att == 1 && com == 3) || (att == 2 && com == 1) || (att == 3 && com == 2)) {
+										} else if ((att == 1 && com == 3) || (att == 2 && com == 1)
+												|| (att == 3 && com == 2)) {
 											System.out.println("이기셨습니다.");
 											Ehp = Ehp - str;
 											try {
 												Thread.sleep(500);
-											}catch (InterruptedException e) {
+											} catch (InterruptedException e) {
 												// TODO Auto-generated catch block
 												e.printStackTrace();
 											}
 											System.out.println("내구축함 :" + hp + "적구축함" + Ehp);
 										}
 
-									}
-									else if (d==2) {
-										if(sup>0) {
+									} else if (d == 2) {
+										if (sup > 0) {
 											sup--;
 											System.out.println("어뢰를 발사합니다. ");
 											try {
 												Thread.sleep(500);
-											}catch (InterruptedException e) {
+											} catch (InterruptedException e) {
 												// TODO Auto-generated catch block
 												e.printStackTrace();
 											}
-											System.out.println("어뢰잔량"+sup);
+											System.out.println("어뢰잔량" + sup);
 											Random random11 = new Random();
 											int data1 = random11.nextInt(4) + 1;
-											if(data1==1) {
+											if (data1 == 1) {
 												try {
 													Thread.sleep(500);
-												}catch (InterruptedException e) {
+												} catch (InterruptedException e) {
 													// TODO Auto-generated catch block
 													e.printStackTrace();
 												}
 												System.out.println("어뢰가 적중합니다.");
 												try {
 													Thread.sleep(500);
-												}catch (InterruptedException e) {
+												} catch (InterruptedException e) {
 													// TODO Auto-generated catch block
 													e.printStackTrace();
 												}
 												System.out.println("적탄실에 적중했습니다!!!!");
 												try {
 													Thread.sleep(500);
-												}catch (InterruptedException e) {
+												} catch (InterruptedException e) {
 													// TODO Auto-generated catch block
 													e.printStackTrace();
 												}
 												System.out.println("유폭이 발생했습니다!!!!!!!!!!");
-												Ehp=Ehp-450;
-												if (Ehp<0) {
-													Ehp=0;
+												Ehp = Ehp - 450;
+												if (Ehp < 0) {
+													Ehp = 0;
 												}
-												System.out.println("적 함선 : "+Ehp);
-											}
-											else if (data1==2) {
+												System.out.println("적 함선 : " + Ehp);
+											} else if (data1 == 2) {
 												System.out.println("어뢰가 영~ 좋지 못한 곳을 스칩니다.");
 												System.out.println("대미지는 입어드릴께요");
-												Ehp=Ehp-100;
-												if (Ehp<0) {
-													Ehp=0;
+												Ehp = Ehp - 100;
+												if (Ehp < 0) {
+													Ehp = 0;
 												}
-												System.out.println("적 함선 : "+Ehp);
-											}
-											else if (data1==3) {
+												System.out.println("적 함선 : " + Ehp);
+											} else if (data1 == 3) {
 												System.out.println("적은 현란한 무빙으로 어뢰를 피해갑니다.");
 												System.out.println("단 1의 피해도 입히지 못하였습니다.");
-											}
-											else if (data1==4) {
+											} else if (data1 == 4) {
 												System.out.println("해류가 심해서 어뢰가 모두 잘못된 방향으로 나갑니다.");
 												System.out.println("적 합선이 당신의 조준실력에 비웃음을 보냅니다.");
 											}
 
-										}
-										else if (sup<=0) {
+										} else if (sup <= 0) {
 											System.out.println("어뢰의 잔량이 없습니다.");
 										}
 
 									}
 
-								} while (hp > 0 && Ehp > 0);//전투 끝지점
-								
-								if(Ehp==0&&hp>0) {
-									tr=tr+3;
+								} while (hp > 0 && Ehp > 0);// 전투 끝지점
+
+								if (Ehp == 0 && hp > 0) {
+									tr = tr + 3;
 									System.out.println("전투에서 승리하셨습니다.");
-									System.out.println("내구축함 : "+hp+" 자제 : "+ tr );
+									System.out.println("내구축함 : " + hp + " 자제 : " + tr);
 								}
 							}
 
 							else if (data == 2) {
 								System.out.println("보물이다!!!!");
 								tr++;
-								System.out.println("내 구축함 : "+hp+" 자제"+tr);
+								System.out.println("내 구축함 : " + hp + " 자제" + tr);
 							}
 
 							else if (data == 3) {
@@ -250,19 +248,18 @@ public class Playing {
 						else if (c == 2) {
 							System.out.println("보급합니다.");
 							hp = 500;
-							sup=sup+2;
+							sup = sup + 2;
 							tr--;
-							System.out.println("내구축함 : "+hp+" 자제"+tr+"어뢰 잔량"+sup);
+							System.out.println("내구축함 : " + hp + " 자제" + tr + "어뢰 잔량" + sup);
 						}
 
 						else if (c == 3) {
 							System.out.println("강화합니다.");
-							if(tr>=10) {
-								tr=tr-10;
-								str=str+50;
-								System.out.println("자재잔량 "+tr+" 공격력 "+str);
-							}
-							else if (tr<10) {
+							if (tr >= 10) {
+								tr = tr - 10;
+								str = str + 50;
+								System.out.println("자재잔량 " + tr + " 공격력 " + str);
+							} else if (tr < 10) {
 								System.out.println("자제가 부족합니다.");
 							}
 						}
@@ -271,16 +268,20 @@ public class Playing {
 				}
 
 				else if (b == 2) {
-					str=str+50;
+					str = str + 50;
+					hp = hp + 500;
+					int sub = 15;// 함제기 어뢰
+					int PlainCount = 0;// 함제기를 날린 횟수
 					System.out.println("순양합을 선택하셨습니다.");
 					while (hp > 0) {
-						oil = 10;
+						// dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+						int plain = 2;// 함제기 수량
 						System.out.println("무엇을 하시겠습니까?");
 						System.out.println("1:출격 2:수리 3:강화");
 						Scanner num11 = new Scanner(System.in);
 						c = num11.nextInt();
 
-						// 구축시작
+						// 순양함 시작
 
 						if (c == 1) {
 							int Ehp = 500;// 적 체력
@@ -289,33 +290,171 @@ public class Playing {
 							int data = random.nextInt(3) + 1;
 
 							if (data == 1) {
+								try {
+									Thread.sleep(500);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 								System.out.println("적과 조우하였습니다.");
+								try {
+									Thread.sleep(500);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 								System.out.println("전투 준비");
+								try {
+									Thread.sleep(500);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 								System.out.println("전투는 가위, 바위, 보로 이루어집니다.");
+								try {
+									Thread.sleep(500);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 								System.out.println("전투를 시작합니다.");
 								do {
-									System.out.println("내순양함 :" + hp + "적구축함" + Ehp);
-									System.out.println("1:가위 2:바위 3:보");
+									try {
+										Thread.sleep(500);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									System.out.println("1:기본공격 2:특수공격");
 									Scanner num111 = new Scanner(System.in);
-									att = num111.nextInt();
-									int sis = 1, rok = 2, pap = 3;
-									Random random1 = new Random();
-									int com = random.nextInt(3) + 1;
-									if (att == com) {
-										System.out.println("비기셨습니다.");
-									} else if ((att == 1 && com == 2) || (att == 2 && com == 3) || (att == 3 && com == 1)) {
-										System.out.println("지셨습니다.");
-										hp = hp - 50;
-									} else if ((att == 1 && com == 3) || (att == 2 && com == 1) || (att == 3 && com == 2)) {
-										System.out.println("이기셨습니다.");
-										Ehp = Ehp - str;
+									d = num111.nextInt();
+									if (d == 1) {
+										try {
+											Thread.sleep(500);
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										System.out.println("내순양함 :" + hp + "적함선" + Ehp);
+										try {
+											Thread.sleep(500);
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										System.out.println("1:가위 2:바위 3:보");
+										Scanner num1111 = new Scanner(System.in);
+										att = num1111.nextInt();
+										int sis = 1, rok = 2, pap = 3;
+										Random random1 = new Random();
+										int com = random1.nextInt(3) + 1;
+										if (att == com) {
+											System.out.println("비기셨습니다.");
+											try {
+												Thread.sleep(500);
+											} catch (InterruptedException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+											System.out.println("내순양함 :" + hp + "적함선" + Ehp);
+										} else if ((att == 1 && com == 2) || (att == 2 && com == 3)
+												|| (att == 3 && com == 1)) {
+											System.out.println("지셨습니다.");
+											hp = hp - 50;
+											try {
+												Thread.sleep(500);
+											} catch (InterruptedException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+											System.out.println("내순양함 :" + hp + "적함선" + Ehp);
+										} else if ((att == 1 && com == 3) || (att == 2 && com == 1)
+												|| (att == 3 && com == 2)) {
+											System.out.println("이기셨습니다.");
+											Ehp = Ehp - str;
+											try {
+												Thread.sleep(500);
+											} catch (InterruptedException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+											System.out.println("내순양함 :" + hp + "적함선" + Ehp);
+										}
+
+									} else if (d == 2) {
+										if (plain > 0 && sub > 0) {
+											plain--;
+											System.out.println("함제기 발진!!!!! ");
+											try {
+												Thread.sleep(500);
+											} catch (InterruptedException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+											System.out.println("잔여 함제기" + plain);
+											Random random11 = new Random();
+											int data11 = random11.nextInt(4) + 1;
+											if (data11 == 1) {
+												try {
+													Thread.sleep(500);
+												} catch (InterruptedException e) {
+													// TODO Auto-generated catch block
+													e.printStackTrace();
+												}
+												System.out.println("어뢰가 적중합니다.");
+												try {
+													Thread.sleep(500);
+												} catch (InterruptedException e) {
+													// TODO Auto-generated catch block
+													e.printStackTrace();
+												}
+												System.out.println("적탄실에 적중했습니다!!!!");
+												try {
+													Thread.sleep(500);
+												} catch (InterruptedException e) {
+													// TODO Auto-generated catch block
+													e.printStackTrace();
+												}
+												System.out.println("유폭이 발생했습니다!!!!!!!!!!");
+												Ehp = Ehp - 450;
+												if (Ehp < 0) {
+													Ehp = 0;
+												}
+												System.out.println("적 함선 : " + Ehp);
+												PlainCount++;
+
+											} else if (data11 == 2) {
+												System.out.println("어뢰가 영~ 좋지 못한 곳을 스칩니다.");
+												System.out.println("대미지는 입어드릴께요");
+												Ehp = Ehp - 100;
+												if (Ehp < 0) {
+													Ehp = 0;
+												}
+												System.out.println("적 함선 : " + Ehp);
+												PlainCount++;
+
+											} else if (data11 == 3) {
+												System.out.println("적은 현란한 무빙으로 어뢰를 피해갑니다.");
+												System.out.println("단 1의 피해도 입히지 못하였습니다.");
+
+											} else if (data11 == 4) {
+												System.out.println("해류가 심해서 어뢰가 모두 잘못된 방향으로 나갑니다.");
+												System.out.println("적 합선이 당신의 조준실력에 비웃음을 보냅니다.");
+
+											}
+
+										} else if (plain <= 0) {
+											System.out.println("탑제 합제기 수가 부족합니다.");
+										} else if (sub <= 0) {
+											System.out.println("어뢰적제량이 바닥났습니다.");
+										}
+
 									}
 
-								} while (hp > 0 && Ehp > 0);
-
-								if(Ehp==0&&hp>0) {
-									tr=tr+3;
-									System.out.println("내순양함 : "+hp+"자제 : "+tr);
+								} while (hp > 0 && Ehp > 0);// 전투 끝지점
+								if (Ehp <= 0 && hp > 0) {
+									tr = tr + 3;
+									System.out.println("내순양함 : " + hp + "자제 : " + tr);
 								}
 
 							}
@@ -323,7 +462,7 @@ public class Playing {
 							else if (data == 2) {
 								System.out.println("보물이다!!!!");
 								tr++;
-								System.out.println("내 순양함 : "+hp+"자제"+tr);
+								System.out.println("내 순양함 : " + hp + "자제" + tr);
 							}
 
 							else if (data == 3) {
@@ -334,25 +473,78 @@ public class Playing {
 
 						else if (c == 2) {
 							System.out.println("수리합니다.");
-							hp = 500;
+							hp = 1000;
 							tr--;
-							System.out.println("내순양함 : "+hp+" 자제 "+tr);
+							System.out.println("내순양함 : " + hp + " 자제 " + tr);
 						}
 
 						else if (c == 3) {
 							System.out.println("강화합니다.");
-							if(tr>=10) {
-								tr=tr-10;
-								str=str+50;
-								System.out.println("자재잔량 "+tr+" 공격력 "+str);
-							}
-							else if (tr<10) {
+							if (tr >= 10) {
+								tr = tr - 10;
+								str = str + 50;
+								System.out.println("자재잔량 " + tr + " 공격력 " + str);
+								power++;// 강화 횟수 증가
+								int reject = 0;// 거절
+								if (power == 1 && reject == 0) {
+									System.out.println("강화 횟수가 5번이상입니다.");
+									System.out.println("함장님의 배속이 전함으로 이전되십니다.");
+									System.out.println("전함의 함장이 되시겠습니까?");
+									System.out.println("1.네                2.아니요");
+									Scanner num111 = new Scanner(System.in);
+									int e = num111.nextInt();
+									if (e == 1) {
+										break;
+									} else if (e == 2) {
+										System.out.println("이런 기회는 다시는 없을것입니다.");
+										reject++;
+									}
+									// ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+
+								}
+
+							} else if (tr < 10) {
 								System.out.println("자제가 부족합니다.");
 							}
 						}
 
 					}
+					int battle = 0;// 전투 횟수
+					int reload;// 장전 횟수
+					int evadeNum = 3;// 회피 갯수
+					while (power == 1 && hp > 0) {
+						System.out.println("전함을 운용합니다.");
+						System.out.println("1.출격       2.보급");
+						Scanner num111 = new Scanner(System.in);
+						int e = num111.nextInt();
+						if (e == 1) {
+							System.out.println("출격합니다.");
+							Random random = new Random();
+							int data = random.nextInt(3) + 1;
+							if (data == 1) {
+								System.out.println("적 함대와 교전에 돌입합니다.");
+								System.out.println("함포 사격후에는 장전이 반드시 필요합니다.");
+								System.out.println("회피 기동은 당 교전에서 3번에 제한이 있습니다.");
+								Random random1 = new Random();
+								int com = random1.nextInt(3) + 1;
+								int shut=1;
+								int evade =2;
+								int reloadNum=3;
+								
+								if(4dx) {
+									
+								}
+
+							}
+
+						} else if (e == 2) {
+
+						}
+
+					} // 전함 끝지점
+
 				}
+				// 순양함 끝나는 부분
 
 			}
 
@@ -362,11 +554,6 @@ public class Playing {
 			}
 
 		}
-
-	}
-
-	private static void sleep(int i) {
-		// TODO Auto-generated method stub
 
 	}
 
