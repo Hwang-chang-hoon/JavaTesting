@@ -20,11 +20,14 @@ public class Playing {
 		int Estr = 50;
 		int power = 0;// 강화횟수
 		int airSuc = 0;// 항공공격 선택
+		int plain = 2;// 함제기 수량
 		int sup = 5;// 어뢰
-		int YamatoUp = 0;// 야마토에게 짐
-		int YamatoDoun = 0;// 야마토 잡음
+		int Yhp = 10000;
+		int Ystr = 5000;
 		int tuto = 0;
 		int tutoEnd = 0;
+		int reject1 = 0;// 거절
+		int reject2 = 0;// 거절
 		while (hp >= 0) {
 			System.out.println("게임 스타트");
 			System.out.println("1:실행 2 종료");
@@ -163,7 +166,7 @@ public class Playing {
 											System.out.println("내꺼" + oil + "상대꺼" + Eoil);
 											System.out.println("내꺼 hp : " + hp + "컴퓨터꺼 hp : " + Ehp);
 											reload = 0;
-											comreload = 0;
+											comreload = 0; 
 										} // 서로 장전 X
 											// 4
 										else if (e == 1 && com == 1 && reload == 0 && comreload > 0) {
@@ -413,7 +416,7 @@ public class Playing {
 											System.out.println("내꺼 : " + reload + "컴퓨터꺼 : " + comreload);
 											System.out.println("서로의 회피가능 횟수");
 											System.out.println("내꺼" + oil + "상대꺼" + Eoil);
-											Ehp -= (str * reload);
+											hp -= (Estr * reload);
 											System.out.println("내꺼 hp : " + hp + "컴퓨터꺼 hp : " + Ehp);
 											comreload = 0;
 										} // 나 장전 상대 발싸
@@ -592,7 +595,6 @@ public class Playing {
 					System.out.println("순양합을 선택하셨습니다.");
 					while (hp > 0) {
 						// dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-						int plain = 2;// 함제기 수량
 						Ehp = 500;// 적 체력
 						Eoil = 10;// 적 연료
 						comreload = 0;
@@ -602,8 +604,8 @@ public class Playing {
 						c = num11.nextInt();
 
 						// 순양함 시작
-
 						if (c == 1) {
+							
 							Ehp = +500;// 적 체력
 							System.out.println("출격합니다.");
 							Random random = new Random();
@@ -937,7 +939,7 @@ public class Playing {
 											System.out.println("내꺼 : " + reload + "컴퓨터꺼 : " + comreload);
 											System.out.println("서로의 회피가능 횟수");
 											System.out.println("내꺼" + oil + "상대꺼" + Eoil);
-											Ehp -= (str * reload);
+											hp -= (Estr * reload);
 											System.out.println("내꺼 hp : " + hp + "컴퓨터꺼 hp : " + Ehp);
 											comreload = 0;
 										} // 나 장전 상대 발싸
@@ -1062,6 +1064,7 @@ public class Playing {
 								} while (hp > 0 && Ehp > 0);// 전투 끝지점
 								if (Ehp <= 0 && hp > 0) {
 									tr = tr + 3;
+									System.out.println("전투에서 승리하셨습니다.");
 									System.out.println("내순양함 : " + hp + "자제 : " + tr);
 								}
 
@@ -1091,24 +1094,23 @@ public class Playing {
 							if (tr >= 10) {
 								tr = tr - 10;
 								str = str + 50;
+								plain+=2;
 								System.out.println("자재잔량 " + tr + " 공격력 " + str);
 								power++;// 강화 횟수 증가
-								int reject = 0;// 거절
-								if (power == 1 && reject == 0) {
-									System.out.println("강화 횟수가 5번이상입니다.");
-									System.out.println("함장님의 배속이 전함으로 이전되십니다.");
-									System.out.println("전함의 함장이 되시겠습니까?");
-									System.out.println("1.네                2.아니요");
-									Scanner num111 = new Scanner(System.in);
-									int e = num111.nextInt();
-									if (e == 1) {
-										break;
-									} else if (e == 2) {
-										System.out.println("이런 기회는 다시는 없을것입니다.");
-										reject++;
-									}
-									// ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
+								}
+							if (power == 1 && reject1 == 0) {
+								System.out.println("강화 횟수가 5번이상입니다.");
+								System.out.println("함장님의 배속이 전함으로 이전되십니다.");
+								System.out.println("전함의 함장이 되시겠습니까?");
+								System.out.println("1.네                2.아니요");
+								Scanner num111 = new Scanner(System.in);
+								int e = num111.nextInt();
+								if (e == 1) {
+									break;
+								} else if (e == 2) {
+									System.out.println("이런 기회는 다시는 없을것입니다.");
+									reject1++;
 								}
 
 							} else if (tr < 10) {
@@ -1116,8 +1118,7 @@ public class Playing {
 							}
 
 						}
-						int reject = 0;// 거절
-						if (PlainCount >= 1 && reject == 0) {
+						if (PlainCount >= 1 && reject2 == 0) {
 							System.out.println("비행기 공격 횟수가 5번이상입니다.");
 							System.out.println("함장님의 배속이 항공모함으로 이전되십니다.");
 							System.out.println("항공모함의 함장이 되시겠습니까?");
@@ -1129,7 +1130,7 @@ public class Playing {
 								break;
 							} else if (e == 2) {
 								System.out.println("이런 기회는 다시는 없을것입니다.");
-								reject++;
+								reject2++;
 							}
 
 						}
@@ -1145,14 +1146,14 @@ public class Playing {
 						int e = num111.nextInt();
 						if (e == 1) {
 							int esey = 1;
-							int eseyHp = 500;
-							int eseystr = 50;
+							int eseyHp = 300;
+							int eseystr = 25;
 							int nomal = 2;
-							int nomalHp = 1000;
-							int nomalstr = 100;
+							int nomalHp = 500;
+							int nomalstr = 50;
 							int hard = 3;
-							int hardHp = 3000;
-							int hardstr = 300;
+							int hardHp = 1000;
+							int hardstr = 100;
 							comreload = 0;
 							System.out.println("출격합니다.");
 
@@ -1465,7 +1466,7 @@ public class Playing {
 											System.out.println("내꺼 : " + reload + "컴퓨터꺼 : " + comreload);
 											System.out.println("서로의 회피가능 횟수");
 											System.out.println("내꺼" + oil + "상대꺼" + Eoil);
-											eseyHp -= (str * reload);
+											hp -= (eseystr * reload);
 											System.out.println("내꺼 hp : " + hp + "컴퓨터꺼 hp : " + eseyHp);
 											comreload = 0;
 										} // 나 장전 상대 발싸
@@ -1519,6 +1520,11 @@ public class Playing {
 									}
 
 								} while (hp > 0 && eseyHp > 0);// 전투 끝지점
+								if (eseyHp <= 0 || nomalHp <= 0 || hardHp<=0 && hp > 0) {
+									tr = tr + 3;
+									System.out.println("전투에서 승리하셨습니다.");
+									System.out.println("내전함 : " + hp + " 자제 : " + tr);
+								}
 
 							} else if (enmy == 2) {
 								do {
@@ -1818,7 +1824,7 @@ public class Playing {
 											System.out.println("내꺼 : " + reload + "컴퓨터꺼 : " + comreload);
 											System.out.println("서로의 회피가능 횟수");
 											System.out.println("내꺼" + oil + "상대꺼" + Eoil);
-											nomalHp -= (str * reload);
+											hp -= (nomalstr * reload);
 											System.out.println("내꺼 hp : " + hp + "컴퓨터꺼 hp : " + nomalHp);
 											comreload = 0;
 										} // 나 장전 상대 발싸
@@ -1871,10 +1877,15 @@ public class Playing {
 										} // 나장전 상대 장전
 									}
 
-								} while (hp > 0 && Ehp > 0);// 전투 끝지점
+								} while (hp > 0 && nomalHp > 0);// 전투 끝지점
+								if (eseyHp <= 0 || nomalHp <= 0 || hardHp<=0 && hp > 0) {
+									tr = tr + 3;
+									System.out.println("전투에서 승리하셨습니다.");
+									System.out.println("내전함 : " + hp + " 자제 : " + tr);
+								}
 							} else if (enmy == 3) {
 								do {
-									System.out.println("야생의 이지스함이 나타났습니다.");
+									System.out.println("야생의 전함이 나타났습니다.");
 									System.out.println("1:기본공격 ");
 									Scanner num1111 = new Scanner(System.in);
 									d = num1111.nextInt();
@@ -2169,7 +2180,7 @@ public class Playing {
 											System.out.println("내꺼 : " + reload + "컴퓨터꺼 : " + comreload);
 											System.out.println("서로의 회피가능 횟수");
 											System.out.println("내꺼" + oil + "상대꺼" + Eoil);
-											hardHp -= (str * reload);
+											hp -= (hardstr * reload);
 											System.out.println("내꺼 hp : " + hp + "컴퓨터꺼 hp : " + hardHp);
 											comreload = 0;
 										} // 나 장전 상대 발싸
@@ -2222,25 +2233,42 @@ public class Playing {
 										} // 나장전 상대 장전
 									}
 
-								} while (hp > 0 && Ehp > 0);// 전투 끝지점
+								} while (hp > 0 && hardHp > 0);// 전투 끝지점
+								if (eseyHp <= 0 || nomalHp <= 0 || hardHp<=0 && hp > 0) {
+									tr = tr + 3;
+									System.out.println("전투에서 승리하셨습니다.");
+									System.out.println("내전함 : " + hp + " 자제 : " + tr);
+								}
 							}
 
-							if (Ehp == 0 && hp > 0) {
+							if (eseyHp <= 0 && hp > 0 && tr>0) {
 								System.out.println("수리합니다.");
-								hp = 1000;
+								hp += 500;
 								str = str + 100;
 								tr--;
 
 							}
+							else if (nomalHp <= 0 && hp > 0 && tr>0) {
+								System.out.println("수리합니다.");
+								hp += 1000;
+								str = str + 500;
+								tr--;
+							}
+							else if (hardHp <= 0 && hp > 0 && tr>0) {
+								System.out.println("수리합니다.");
+								hp += 2000;
+								str = str + 1000;
+								tr--;
+							}
 
-						} else if (e == 2) {
+						} else if (e == 2 && tr>0) {
 							System.out.println("체력을 보급합니다.");
 							hp = hp + 500;
+							str+=100;
+							tr--;
 
 						}
 						if (battle == 10) {
-							int Yhp = 10000;
-							int Ystr = 5000;
 							System.out.println("적의 중심지로 들어왔습니다.");
 							System.out.println("야마토와 조우했습니다.");
 							System.out.println("무운을...........");
@@ -2273,7 +2301,6 @@ public class Playing {
 								}
 
 							} while (hp > 0 && Yhp > 0);// 전투 끝지점
-							YamatoUp++;
 
 						}
 
@@ -2285,13 +2312,13 @@ public class Playing {
 						Scanner num111 = new Scanner(System.in);
 						int e = num111.nextInt();
 						if (e == 1) {
-							Ehp = +500;// 적 체력
+							Ehp = 500;// 적 체력
 							System.out.println("출격합니다.");
 
 							System.out.println("적과 조우하였습니다.");
 
 							System.out.println("전투 준비");
-							System.out.println("전투는 가위, 바위, 보로 이루어집니다.");
+						
 
 							System.out.println("전투를 시작합니다.");
 							do {
@@ -2300,41 +2327,62 @@ public class Playing {
 								Scanner num1111 = new Scanner(System.in);
 								d = num1111.nextInt();
 								if (d == 1) {
+									if (plain > 0 && sub > 0) {
+										plain--;
+										System.out.println("함제기 발진!!!!! ");
+										
+										System.out.println("잔여 함제기" + plain);
+										Random random11 = new Random();
+										int data11 = random11.nextInt(4) + 1;
+										if (data11 == 1) {
+											
+											System.out.println("어뢰가 적중합니다.");
+											
+											System.out.println("적탄실에 적중했습니다!!!!");
+											
+											System.out.println("유폭이 발생했습니다!!!!!!!!!!");
+											Ehp = Ehp - 450;
+											if (Ehp < 0) {
+												Ehp = 0;
+											}
+											System.out.println("적 함선 : " + Ehp);
+											PlainCount++;
 
-									System.out.println("내항공모함 :" + hp + "적구축함" + Ehp);
+										} else if (data11 == 2) {
+											System.out.println("어뢰가 영~ 좋지 못한 곳을 스칩니다.");
+											System.out.println("대미지는 입어드릴께요");
+											Ehp = Ehp - 100;
+											if (Ehp < 0) {
+												Ehp = 0;
+											}
+											System.out.println("적 함선 : " + Ehp);
+											PlainCount++;
 
-									System.out.println("1:가위 2:바위 3:보");
-									Scanner num11111 = new Scanner(System.in);
-									att = num11111.nextInt();
-									int sis = 1, rok = 2, pap = 3;
-									Random random1 = new Random();
-									int com = random1.nextInt(3) + 1;
-									if (att == com) {
-										System.out.println("비기셨습니다.");
+										} else if (data11 == 3) {
+											System.out.println("적은 현란한 무빙으로 어뢰를 피해갑니다.");
+											System.out.println("단 1의 피해도 입히지 못하였습니다.");
 
-										System.out.println("내항공모함 :" + hp + "적구축함" + Ehp);
-									} else if ((att == 1 && com == 2) || (att == 2 && com == 3)
-											|| (att == 3 && com == 1)) {
-										System.out.println("지셨습니다.");
-										hp = hp - 50;
+										} else if (data11 == 4) {
+											System.out.println("해류가 심해서 어뢰가 모두 잘못된 방향으로 나갑니다.");
+											System.out.println("적 합선이 당신의 조준실력에 비웃음을 보냅니다.");
 
-										System.out.println("내항공모함 :" + hp + "적구축함" + Ehp);
-									} else if ((att == 1 && com == 3) || (att == 2 && com == 1)
-											|| (att == 3 && com == 2)) {
-										System.out.println("이기셨습니다.");
-										Ehp = Ehp - str;
+										}
 
-										System.out.println("내항공모함 :" + hp + "적구축함" + Ehp);
+									} else if (plain <= 0) {
+										System.out.println("탑제 합제기 수가 부족합니다.");
+									} else if (sub <= 0) {
+										System.out.println("어뢰적제량이 바닥났습니다.");
 									}
 
 								}
 
+						
 							} while (hp > 0 && Ehp > 0);// 전투 끝지점
 
 							if (Ehp == 0 && hp > 0) {
-								System.out.println("수리합니다.");
-								hp = 1000;
-								str = str + 100;
+								System.out.println("강화합니다.");
+								hp += 1000;
+								plain+=2;
 								tr--;
 
 							}
@@ -2342,38 +2390,91 @@ public class Playing {
 						} else if (e == 2) {
 							System.out.println("체력및 항공기를 보급합니다.");
 							hp = hp + 500;
+							plain+=5;
 							battle1++;
+							tr--;
 
 						}
 						if (battle1 == 10) {
-							int Yhp = 10000;
-							int Ystr = 5000;
 							System.out.println("적의 중심지로 들어왔습니다.");
 							System.out.println("야마토와 조우했습니다.");
 							System.out.println("무운을...........");
 							System.out.println("전투를 시작합니다.");
 
 							do {
+								if (plain > 0 && sub > 0) {
+									plain--;
+									System.out.println("함제기 발진!!!!! ");
+									
+									System.out.println("잔여 함제기" + plain);
+									Random random11 = new Random();
+									int data11 = random11.nextInt(4) + 1;
+									if (data11 == 1) {
+										
+										System.out.println("어뢰가 적중합니다.");
+										
+										System.out.println("적탄실에 적중했습니다!!!!");
+										
+										System.out.println("유폭이 발생했습니다!!!!!!!!!!");
+										Yhp = Yhp - 5000;
+										if (Yhp < 0) {
+											Yhp = 0;
+										}
+										System.out.println("적 함선 : " + Ehp);
+						
 
-								System.out.println("내항공모함 :" + hp + "야먀토" + Yhp);
+									} else if (data11 == 2) {
+										System.out.println("어뢰가 영~ 좋지 못한 곳을 스칩니다.");
+										System.out.println("대미지는 입어드릴께요");
+										Yhp = Yhp - 2000;
+										if (Yhp < 0) {
+											Yhp = 0;
+										}
+										System.out.println("적 함선 : " + Ehp);
+									
+									} else if (data11 == 3) {
+										System.out.println("야마토는 엄청난 떡대로 걍 어뢰를 치고갑니다..");
+										System.out.println("단 1의 피해도 입히지 못하였습니다.");
+										Yhp-=1000;
+										System.out.println("적 함선 : " + Ehp);
 
-							} while (hp > 0 && Yhp > 0);// 전투 끝지점
-							YamatoDoun++;
+									} else if (data11 == 4) {
+										System.out.println("해류가 심해서 어뢰가 모두 잘못된 방향으로 나갑니다.");
+										System.out.println("야마토가 당신의 조준실력에 비웃음을 보냅니다.");
+										System.out.println("적 함선 : " + Ehp);
+						
+
+
+									}
+
+								} else if (plain <= 0) {
+									System.out.println("탑제 합제기 수가 부족합니다.");
+								} else if (sub <= 0) {
+									System.out.println("어뢰적제량이 바닥났습니다.");
+								}
+
+							
+
+					
+								
+
+							} while (hp > 0 && Yhp > 0||plain<=0);// 전투 끝지점
 							break;
 
 						}
 
 					}
-					if (YamatoUp == 1) {
+					if (Yhp>0) {
 						System.out.println("절대 함선 야마토에게 패배하였습니다.");
 						System.out.println("ㅋ ");
 						System.out.println("다시 노가다 허쉴?");
 					}
 
-					else if (YamatoDoun == 1) {
+					else if (Yhp<=0) {
 						System.out.println("절대 함선 야마토를 잡았습니다.");
 						System.out.println("축하드립니다. ");
 						System.out.println("다시 노가다 허쉴?");
+						str+=10;
 					}
 
 				}
