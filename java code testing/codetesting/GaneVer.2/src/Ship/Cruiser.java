@@ -1,14 +1,89 @@
 package Ship;
 
-import Game.*;
-public class Cruiser extends Unit {
-	int plain;
-	int plain_atk;
+import java.util.Random;
 
-	public Cruiser(String name, int hp, int atk, int oil, int reload, int plain, int plain_atk) {
-		super(name, hp, atk, oil, reload);
+import Game.*;
+
+public class Cruiser extends Unit {
+	public int plain;
+	public int plain_atk;
+	public int plainCount;
+	boolean upgrade;//죽음 판단
+
+	public Cruiser(String name, int hp, int hp_, int atk, int oil, int reload, int plain, int plain_atk) {
+		super(name, hp, hp_, atk, oil, reload);
 		this.plain=plain;
 		this.plain_atk=plain_atk;
+	}
+	public void checkplain() {
+		if(this.plainCount>=10)
+			upgrade=true;
+	}
+	public void plainFihgt(Cruiser u, Unit o) {
+		if (u.plain > 0) {
+			u.plain--;
+			System.out.println("함제기 발진!!!!! ");
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("잔여 함제기" + u.plain);
+			Random random11 = new Random();
+			int data11 = random11.nextInt(4) + 1;
+			if (data11 == 1) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("어뢰가 적중합니다.");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("적탄실에 적중했습니다!!!!");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("유폭이 발생했습니다!!!!!!!!!!");
+				o.hp = o.hp - 450;
+				if (o.hp < 0) {
+					o.hp = 0;
+				}
+				System.out.println("적 함선 : " + o.hp);
+				u.plainCount++;
+
+			} else if (data11 == 2) {
+				System.out.println("어뢰가 영~ 좋지 못한 곳을 스칩니다.");
+				System.out.println("대미지는 입어드릴께요");
+				o.hp = o.hp - 100;
+				if (o.hp < 0) {
+					o.hp = 0;
+				}
+				System.out.println("적 함선 : " + o.hp);
+				u.plainCount++;
+
+			} else if (data11 == 3) {
+				System.out.println("적은 현란한 무빙으로 어뢰를 피해갑니다.");
+				System.out.println("단 1의 피해도 입히지 못하였습니다.");
+
+			} else if (data11 == 4) {
+				System.out.println("해류가 심해서 어뢰가 모두 잘못된 방향으로 나갑니다.");
+				System.out.println("적 합선이 당신의 조준실력에 비웃음을 보냅니다.");
+
+			}
+
+		} else if (u.plain <= 0) {
+			System.out.println("탑제 합제기 수가 부족합니다.");
+		} 
 	}
 
 }
