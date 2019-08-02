@@ -5,16 +5,14 @@ import java.util.Random;
 import Game.*;
 
 public class Destroyer extends Unit {
-	public int sub;
-	
+	static public int sub;
 
-	public Destroyer(String name, int hp, int hp_, int atk, int oil, int reload, int sub) {
-		super(name, hp, hp_, atk, oil, reload);
-		this.sub=sub;
+	public Destroyer(String name, int hp, int hp_, int atk, int atk_, int oil, int oil_, int reload, int tr, int sub) {
+		super(name, hp, hp_, atk, atk_, oil, oil_, reload, tr);
+		this.sub = sub;
 	}
-	
-	
-	public void subattact(Destroyer u, Unit o) {
+
+	public static void subattact(Destroyer u, Unit o) {
 		if (u.sub > 0) {
 			u.sub--;
 			System.out.println("어뢰를 발사합니다. ");
@@ -75,5 +73,6 @@ public class Destroyer extends Unit {
 		}
 
 	}
+	
 
 }
