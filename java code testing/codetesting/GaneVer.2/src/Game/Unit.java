@@ -478,13 +478,17 @@ public class Unit  {
 		
 	}
 
-	public static void die(Unit user) {
+	public static void die(Unit user1,Unit user2) {
 		System.out.println("터어어어어어어어어어어어어어어어어어어어얼렸군요.");
 		System.out.println("조금 강화해 드릴테니 가서 일봐.");
-		user.hp = user.hp_ + 10;
-		user.atk = user.atk_ + 15;
-		user.oil = user.oil_;
-		user.dead = true;
+		user1.hp = user1.hp_ + 10;
+		user1.atk = user1.atk_ + 15;
+		user1.oil = user1.oil_;
+		user1.dead = true;
+		user2.hp = user2.hp_ + 10;
+		user2.atk = user2.atk_ + 15;
+		user2.oil = user2.oil_;
+		user2.dead = true;
 	}
 
 	

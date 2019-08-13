@@ -9,9 +9,40 @@ import java.util.*;
 import Ship.*;
 
 public class PlaingGame {
-	
+	static Scanner sc = new Scanner(System.in);
+	Random _random = new Random();
 
-	
+	public static void battle_choice(boolean a) {
+		while (true) {
+			if (a == true) {
+				System.out.println("승선하실 함선을 선택해주십시요.");
+				System.out.println("1 : 구출함");
+				int i = sc.nextInt();
+				if (i == 1) {
+					System.out.println("구축함에 승선하셨습니다.");
+					break;
+				} else
+					System.out.println("아뉘 있는 선택지에서만 고르세요.");
+				continue;
+			} else if (a == false) {
+				System.out.println("승선하실 함선을 선택해주십시요.");
+				System.out.println("1 : 구출함        2 : 순양함");
+				int i = sc.nextInt();
+				if (i == 1) {
+					System.out.println("구축함에 승선하셔씁니다.");
+					break;
+				} else if (i == 2) {
+					System.out.println("순양함에 승선하셨습니다.");
+					break;
+				} else
+					System.out.println("ㅇㅇㅇㅇㅇㅇ내가 뭔말할지 알지요?ㅇㅇㅇㅇㅇㅇ");
+				continue;
+			}
+
+		}
+
+	}
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Unit destroyer = new Destroyer("구축함", 500, 500, 50, 50, 10, 10, 0, 10, 10);
@@ -27,11 +58,11 @@ public class PlaingGame {
 		MyBGM go = new MyBGM();
 		Random _random = new Random();
 		WeatherThread weather = new WeatherThread(0);
-		weather.setDaemon(true) ;
-		go.setDaemon(true) ;
+		weather.setDaemon(true);
+		// go.setDaemon(true);
 		weather.start(); // 스래드 시작 부분
-		go.start();
-		
+		// go.start();
+
 		// sorry.start();
 		while (true) {
 			System.out.println("함선 키우기 시작하시겠습니까?");
@@ -39,114 +70,116 @@ public class PlaingGame {
 			int a = sc.nextInt();
 			if (a == 1) {
 				while (true) {
-				
+
 					System.out.println("당신은 대아시아 태평양함대에 함장으로서 전속 배정되었습니다.");
 					System.out.println("      부디 이 끔찍한 전쟁을 승리로 이끌어주십시오.");
 					System.out.println("");
 
-					if (destroyer.isPowered()) {
-						System.out.println("함장으로서 함선은 골라주십시오.");
-						System.out.println("1. 구축함");
-						int b1 = sc.nextInt();
-						if (b1 == 1) {
-							System.out.println("구축함으로 열심히 전공을 새우시기 바랍니다.");
-							System.out.println("함선에 승선하신 것을 축하드립니다.");
-							while (true) {
-								System.out.println("");
-								System.out.println("함장 명령을 내려주십시요.");
-								System.out.println("무었을 하실겁니까?");
-								System.out.println("1. 출격     2. 보급     3. 강화");
-								int c1 = sc.nextInt();
-								if (c1 == 1) {
-									int data = _random.nextInt(2) + 1;
-									if (data == 1) {
-										int data1 = _random.nextInt(3) + 1;
-										if (data1 == 1) {
-											do {
+	//				if (destroyer.isPowered()) {
+	//					System.out.println("함장으로서 함선은 골라주십시오.");
+	//					System.out.println("1. 구축함");
+	//					int b1 = sc.nextInt();
+//						if (b1 == 1) {
+	//						System.out.println("구축함으로 열심히 전공을 새우시기 바랍니다.");
+		//					System.out.println("함선에 승선하신 것을 축하드립니다.");
+//							while (true) {
+//								System.out.println("");
+//								System.out.println("함장 명령을 내려주십시요.");
+//								System.out.println("무었을 하실겁니까?");
+//								System.out.println("1. 출격     2. 보급     3. 강화");
+//								int c1 = sc.nextInt();
+//								if (c1 == 1) {
+//									int data = _random.nextInt(2) + 1;
+//									if (data == 1) {
+//										int data1 = _random.nextInt(3) + 1;
+//										if (data1 == 1) {
+//											do {
+//
+//												Unit.battle_choice(destroyer, o_destroyer);
+//												int ch = sc.nextInt();
+//												if (ch == 1) {
+//													weather.print();
+//													Unit.battle(destroyer, o_destroyer);
+//												} else if (ch == 2) {
+//													Destroyer.subattact((Destroyer) destroyer, o_destroyer);
+//												}
+//
+//											} while (Unit.checkDead(destroyer) && Unit.checkDead(o_destroyer));
+//
+//										} else if (data1 == 2) {
+//											do {
+//												Unit.battle_choice(destroyer, o_destroyer);
+//												int ch = sc.nextInt();
+//												if (ch == 1) {
+//													weather.print();
+//													Unit.battle(destroyer, o_destroyer);
+//												} else if (ch == 2) {
+//													Destroyer.subattact((Destroyer) destroyer, o_destroyer);
+//												}
+//
+//											} while (Unit.checkDead(destroyer) && Unit.checkDead(o_destroyer));
+//
+//										} else if (data1 == 3) {
+//											do {
+//												Unit.battle_choice(destroyer, o_destroyer);
+//												int ch = sc.nextInt();
+//												if (ch == 1) {
+//													weather.print();
+//													Unit.battle(destroyer, o_destroyer);
+//												} else if (ch == 2) {
+//													Destroyer.subattact((Destroyer) destroyer, o_destroyer);
+//												}
+//
+//											} while (Unit.checkDead(destroyer) && Unit.checkDead(o_destroyer));
+//
+//										} else if (data1 == 4) {
+//											do {
+//												Unit.battle_choice(destroyer, o_cruiser);
+//												int ch = sc.nextInt();
+//												if (ch == 1) {
+//													weather.print();
+//													Unit.battle(destroyer, o_cruiser);
+//												} else if (ch == 2) {
+//													Destroyer.subattact((Destroyer) destroyer, o_cruiser);
+//												}
+//
+//											} while (Unit.checkDead(destroyer) && Unit.checkDead(o_cruiser));
+//
+//										}
+//										if (Unit.checkDead(o_destroyer) == false
+//												|| Unit.checkDead(o_cruiser) == false) {
+//											Unit.battle_end(destroyer);
+//											Unit.reset(o_destroyer);
+//											Unit.reset(o_cruiser);
+//										} else if (Unit.checkDead(destroyer) == false) {
+//											Unit.die(destroyer, cruiser);
+//											Unit.reset(o_cruiser);
+//											Unit.reset(o_destroyer);
+//											break;
+//										}
+//
+//									} else if (data == 2) {
+//										Unit.lucky(destroyer);
+//									} else if (data == 3) {
+//										Unit.un_lucky(destroyer);
+//									}
+//								} else if (c1 == 2) {
+//									Unit.supply(destroyer);
+//								} else if (c1 == 3) {
+//									Unit.power_up(destroyer, o_destroyer, o_cruiser);
+//									if (destroyer.isPowered() == false) {
+//										Unit.tutorial(destroyer);
+//										break;
+//									}
+//								}
+//							}
 
-												Unit.battle_choice(destroyer, o_destroyer);
-												int ch = sc.nextInt();
-												if (ch == 1) {
-													weather.print();
-													Unit.battle(destroyer, o_destroyer);
-												} else if (ch == 2) {
-													Destroyer.subattact((Destroyer) destroyer, o_destroyer);
-												}
+//						} if(true)
+//							System.out.println("아니 지금은 애송이이시니 빨리 구축함이나 타서 성장하세요.");
+//						continue;
 
-											} while (Unit.checkDead(destroyer) && Unit.checkDead(o_destroyer));
-
-										} else if (data1 == 2) {
-											do {
-												Unit.battle_choice(destroyer, o_destroyer);
-												int ch = sc.nextInt();
-												if (ch == 1) {
-													weather.print();
-													Unit.battle(destroyer, o_destroyer);
-												} else if (ch == 2) {
-													Destroyer.subattact((Destroyer) destroyer, o_destroyer);
-												}
-
-											} while (Unit.checkDead(destroyer) && Unit.checkDead(o_destroyer));
-
-										} else if (data1 == 3) {
-											do {
-												Unit.battle_choice(destroyer, o_destroyer);
-												int ch = sc.nextInt();
-												if (ch == 1) {
-													weather.print();
-													Unit.battle(destroyer, o_destroyer);
-												} else if (ch == 2) {
-													Destroyer.subattact((Destroyer) destroyer, o_destroyer);
-												}
-
-											} while (Unit.checkDead(destroyer) && Unit.checkDead(o_destroyer));
-
-										} else if (data1 == 4) {
-											do {
-												Unit.battle_choice(destroyer, o_cruiser);
-												int ch = sc.nextInt();
-												if (ch == 1) {
-													weather.print();
-													Unit.battle(destroyer, o_cruiser);
-												} else if (ch == 2) {
-													Destroyer.subattact((Destroyer) destroyer, o_cruiser);
-												}
-
-											} while (Unit.checkDead(destroyer) && Unit.checkDead(o_cruiser));
-
-										}
-										if (Unit.checkDead(o_destroyer) == false
-												|| Unit.checkDead(o_cruiser) == false) {
-											Unit.battle_end(destroyer);
-											Unit.reset(o_destroyer);
-											Unit.reset(o_cruiser);
-										} else if (Unit.checkDead(destroyer) == false) {
-											Unit.die(destroyer);
-											Unit.reset(o_cruiser);
-											Unit.reset(o_destroyer);
-											break;
-										}
-
-									} else if (data == 2) {
-										Unit.lucky(destroyer);
-									} else if (data == 3) {
-										Unit.un_lucky(destroyer);
-									}
-								} else if (c1 == 2) {
-									Unit.supply(destroyer);
-								} else if (c1 == 3) {
-									Unit.power_up(destroyer, o_destroyer, o_cruiser);
-									if (destroyer.isPowered() == false) {
-										Unit.tutorial(destroyer);
-										break;
-									}
-								}
-							}
-
-						} else
-							System.out.println("아니 지금은 애송이이시니 빨리 구축함이나 타서 성장하세요.");
-						continue;
-					} else
+			//		} 
+				if (true)
 						System.out.println("함장으로서 함선은 골라주십시오.");
 					System.out.println("1. 구축함           2. 순양함");
 					int b2 = sc.nextInt();
@@ -222,7 +255,7 @@ public class PlaingGame {
 										Unit.reset(o_destroyer);
 										Unit.reset(o_cruiser);
 									} else if (Unit.checkDead(destroyer) == false) {
-										Unit.die(destroyer);
+										Unit.die(destroyer, cruiser);
 										Unit.reset(o_cruiser);
 										Unit.reset(o_destroyer);
 										break;
@@ -325,7 +358,7 @@ public class PlaingGame {
 										}
 
 									} else if (Unit.checkDead(cruiser) == false) {
-										Unit.die(cruiser);
+										Unit.die(cruiser, destroyer);
 										Cruiser.recharge((Cruiser) cruiser);
 										Unit.reset(o_cruiser);
 										Unit.reset(o_destroyer);
@@ -395,7 +428,7 @@ public class PlaingGame {
 									Unit.reset(normal_ship);
 									Unit.reset(hard_ship);
 								} else if (Unit.checkDead(carrier) == false) {
-									Unit.die(carrier);
+									Unit.die(carrier, destroyer);
 									Unit.reset(easy_ship);
 									Unit.reset(normal_ship);
 									Unit.reset(hard_ship);
@@ -413,26 +446,7 @@ public class PlaingGame {
 							while (true) {
 								System.out.println("함장으로서의 명령을 부탁드립니다.");
 								System.out.println("1. 출격                    2. 보급");
-								if (Aircraft_Carrier.upGrade_Count >= 1) {
-									System.out.println("전함으로 야마토를 만났습니다.");
-									System.out.println("악몽이 따로없군요.");
-									System.out.println("행운을 빕니다.");
-									do {
-										Unit.battle(battleship, Yamato);
 
-									} while (Unit.checkDead(battleship) && Unit.checkDead(Yamato));
-									if (Unit.checkDead(Yamato) == false) {
-										Unit.battle_end(battleship);
-										Unit.reset(o_destroyer);
-										Unit.reset(o_cruiser);
-									} else if (Unit.checkDead(battleship) == false) {
-										Unit.die(destroyer);
-										Unit.die(cruiser);
-										Unit.reset(o_cruiser);
-										Unit.reset(o_destroyer);
-										continue;
-									}
-								}
 								int l = sc.nextInt();
 								if (l == 1) {
 									int data1 = _random.nextInt(3) + 1;
@@ -470,7 +484,7 @@ public class PlaingGame {
 										Unit.reset(o_destroyer);
 										Unit.reset(o_cruiser);
 									} else if (Unit.checkDead(battleship) == false) {
-										Unit.die(battleship);
+										Unit.die(battleship, cruiser);
 										Unit.reset(o_cruiser);
 										Unit.reset(o_destroyer);
 										break;
@@ -479,6 +493,28 @@ public class PlaingGame {
 								} else if (l == 2) {
 									Unit.supply(battleship);
 									Aircraft_Carrier.upGrade_Count++;
+								}
+								if (Aircraft_Carrier.upGrade_Count >= 1) {
+									break;
+								}
+							}
+							if (Aircraft_Carrier.upGrade_Count >= 1) {
+								System.out.println("전함으로 야마토를 만났습니다.");
+								System.out.println("악몽이 따로없군요.");
+								System.out.println("행운을 빕니다.");
+								do {
+									Unit.battle(battleship, Yamato);
+
+								} while (Unit.checkDead(battleship) && Unit.checkDead(Yamato));
+								if (Unit.checkDead(Yamato) == false) {
+									Unit.battle_end(battleship);
+									Unit.reset(o_destroyer);
+									Unit.reset(o_cruiser);
+								} else if (Unit.checkDead(battleship) == false) {
+									Unit.die(destroyer, cruiser);
+									Unit.reset(o_cruiser);
+									Unit.reset(o_destroyer);
+									continue;
 								}
 							}
 
@@ -495,14 +531,13 @@ public class PlaingGame {
 					break;
 
 				}
-			
-
-			}
-
-			else
+	
+	}
+			if(true)
 				System.out.println("게임을 종료합니다.");
 			break;
-		}
 
-	}
+}
+
+}
 }
