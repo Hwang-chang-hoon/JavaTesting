@@ -1,21 +1,26 @@
 package Game;
 
 import java.util.Random;
+
 import java.util.Scanner;
 
-public class Unit  {
+import Ship.Cruiser;
+import Ship.Destroyer;
+
+public class Unit {
 
 	String name;
 	public int hp;// 체력
 	public int hp_;// 체력 초기화
 	public int atk;// 공격력
+	public static int atkbuff;
 	public int atk_;// 공격력 초기화
 	public int oil;// 연료
 	public int oil_;// 연료 초기화
 	public int reload;// 잔탄수
 	public int tr;// 보물
 	public int power;// 강화횟수
-	public int choice;//선택
+	public int choice;// 선택
 	public boolean isPowered;// 강화 횟수 판단
 	public boolean dead;// 죽음 판단
 
@@ -37,18 +42,54 @@ public class Unit  {
 		this.dead = true;
 	}
 
-	
 	public boolean isPowered() {
-		return power >= 1 ? false : true;
+		return power >= 1 ? true : false;
 	}
+
 	public boolean isChoice() {
-		return choice == 1 ? false : true;
+		return choice >= 1 ? false : true;
 	}
-	
+
 	public static boolean checkDead(Unit user) {
 		if (user.hp <= 0)
 			user.dead = false;
 		return user.dead;
+	}
+
+	public static void battle_txt(Unit user, Unit opposite) {
+		System.out.println("서로의 장전횟수");
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("======================");
+		System.out.println("내꺼 : " + user.reload);
+		System.out.println("컴퓨터꺼 : " + opposite.reload);
+		System.out.println("======================");
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("서로의 회피가능 횟수");
+		System.out.println("======================");
+		System.out.println("내꺼" + user.oil);
+		System.out.println("상대꺼" + opposite.oil);
+		System.out.println("======================");
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("잔여 체력");
+		System.out.println("======================");
+		System.out.println("내꺼 hp : " + user.hp);
+		System.out.println("컴퓨터꺼 hp : " + opposite.hp);
+		System.out.println("======================");
 	}
 
 	public static void battle(Unit user, Unit opposite) {
@@ -62,36 +103,24 @@ public class Unit  {
 		// 1
 		if (e == 1 && com == 1 && user.reload > 0 && opposite.reload > 0) {
 			System.out.println("서로가 서로에게 발포를 합니다.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
 			user.hp -= (opposite.atk * opposite.reload);
 			opposite.hp -= (user.atk * user.reload);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			user.reload = 0;
 			opposite.reload = 0;
 		} // 서로 발포
 			// 2
 		else if (e == 1 && com == 1 && user.reload > 0 && opposite.reload == 0) {
 			System.out.println("역시 AI는 아직 인간을 뛰어넘지 못합니다.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
 			opposite.hp -= (user.atk * user.reload);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			user.reload = 0;
 			opposite.reload = 0;
 		} // 나만 장전
 			// 3
 		else if (e == 1 && com == 1 && user.reload == 0 && opposite.reload == 0) {
 			System.out.println("장전이 준비되지않았습니다.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			user.reload = 0;
 			opposite.reload = 0;
 		} // 서로 장전 X
@@ -99,12 +128,8 @@ public class Unit  {
 		else if (e == 1 && com == 1 && user.reload == 0 && opposite.reload > 0) {
 			System.out.println("장전이 준비되지않았습니다.");
 			System.out.println("그런대 상대방은 전투의 준비가 끝난모양이군요.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
 			user.hp -= (opposite.atk * opposite.reload);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			user.reload = 0;
 			opposite.reload = 0;
 		} // 상대만 장전
@@ -113,12 +138,8 @@ public class Unit  {
 			System.out.println("발포합니다.");
 			System.out.println("적이 회피기동은 사용하였습니다.");
 			System.out.println("한발도 맞지 않았습니다.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
 			opposite.oil -= 1;
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			user.reload = 0;
 		} // 나 발포 상대 회피
 			// 6
@@ -127,12 +148,8 @@ public class Unit  {
 			System.out.println("적이 회피기동은 사용하였습니다.");
 			System.out.println("장전이 많이 되어 탄막이 충분히 형성되었습니다.");
 			System.out.println("피해를 조금 입힙니다.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
 			opposite.hp -= (user.atk * (user.reload / 3));
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			user.reload = 0;
 		} // 나 발포 성공 상대 회피
 			// 7
@@ -140,12 +157,8 @@ public class Unit  {
 			System.out.println("발포합니다.");
 			System.out.println("적이 멍청하게도 회피를 사용못하는데 회피기동을 명령했습니다.");
 			System.out.println("피해를 입힙니다.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
 			opposite.hp -= (user.atk * user.reload);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			user.reload = 0;
 		} // 나발포 상대 회피불가
 			// 8
@@ -153,22 +166,14 @@ public class Unit  {
 			System.out.println("포대에 포탄이 없습니다.");
 			System.out.println("상대는 겁을먹고 회피기동을 시행합니다.");
 			System.out.println("피해를 입히지도 입지도 않았습니다.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
 			opposite.oil -= 1;
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나 발포 준비 X상대 회피
 			// 9
 		else if (e == 1 && com == 2 && user.reload == 0 && opposite.oil == 0) {
 			System.out.println("포대에 포탄 없습니다.");
 			System.out.println("상대도 준비가 안된상태로 회피기동합니다.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나발포 준비 안됨 산대 회피 불가
 			// 10
 		else if (e == 1 && com == 3 && user.reload > 0) {
@@ -176,12 +181,8 @@ public class Unit  {
 			System.out.println("적은 장전중입니다.");
 			System.out.println("프리딜타임~~");
 			opposite.reload += 1;
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
 			opposite.hp -= (user.atk * user.reload);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			user.reload = 0;
 		} // 나발포 상대장전
 			// 11
@@ -189,11 +190,7 @@ public class Unit  {
 			System.out.println("포대에 포탄이 없습니다.");
 			System.out.println("상대는 전투를 준비하는군요.");
 			opposite.reload += 1;
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 : " + user.hp + "컴퓨터꺼 : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나 발포불가 상대장전
 			// 12
 		else if (e == 2 && com == 1 && user.oil > 0 && opposite.reload > 0 && opposite.reload < 3) {
@@ -201,12 +198,8 @@ public class Unit  {
 			System.out.println("상대는 발포했습니다.");
 			System.out.println("상대의 탄을 소비합니다.");
 			System.out.println("아주 좋소.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
 			user.oil -= 1;
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			opposite.reload = 0;
 		} // 나 회피 상대 발포
 			// 13
@@ -214,13 +207,9 @@ public class Unit  {
 			System.out.println("회피기동을 합니다.");
 			System.out.println("적기에서 도저히 회피할 수 없는 탄막이 나라옵니다.");
 			System.out.println("부디 피해가 경미하기만을 기도합니다.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
 			user.oil -= 1;
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
 			user.hp -= (opposite.atk * (opposite.reload / 3));
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			opposite.reload = 0;
 		} // 나 회피 상대 3번모아 발포
 			// 14
@@ -229,12 +218,8 @@ public class Unit  {
 			System.out.println("상대도 발포를 하려합니다.");
 			System.out.println("그런대 탄이 발사되지 않았습니다.");
 			System.out.println("역시 인간은 위대합니다(푸흡)");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
 			user.oil -= 1;
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			opposite.reload = 0;
 		} // 나 회피 상대 발포 실패
 			// 15
@@ -248,23 +233,15 @@ public class Unit  {
 			System.out.println("아...안되....");
 			System.out.println("앙돼");
 			System.out.println("으아아아아아ㅏ아아아아ㅏ아아아아앙");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
 			user.hp -= (opposite.atk * opposite.reload);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			opposite.reload = 0;
 		} // 나 회피 불가 상대 발포 성공
 			// 16
 		else if (e == 2 && com == 1 && user.oil == 0 && opposite.reload == 0) {
 			System.out.println("둘다 바보입니다.");
 			System.out.println("제발 자신의 적제량을 확인하세요.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 			opposite.reload = 0;
 		} // 나 회피 불가 상대 발포 실패
 			// 17
@@ -272,66 +249,42 @@ public class Unit  {
 			System.out.println("회피기동을 합니다.");
 			System.out.println("상대도 회피기동을 합니다.");
 			System.out.println("아까운 기름만 날렸군요.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나 회피 상대 회피
 			// 18
 		else if (e == 2 && com == 2 && user.oil == 0 && opposite.oil > 0) {
 			System.out.println("기름없습니다.");
 			System.out.println("상대방도 허공에 기름을 낭비하는군요.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
 			opposite.oil -= 1;
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나 회피 불가 상대 회피 가능
 			// 19
 		else if (e == 2 && com == 2 && user.oil > 0 && opposite.oil == 0) {
 			System.out.println("회피 기동을 실시합니다.");
 			System.out.println("상대는 기름이 다떨어졌습니다.");
 			System.out.println("기름만 낭비하셨군요?");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
 			user.oil -= 1;
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나회피가능 상대회피 불가
 			// 20
 		else if (e == 2 && com == 2 && user.oil == 0 && opposite.oil == 0) {
 			System.out.println("기름이 부족하다고");
 			System.out.println("상대도 부족합니다.");
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나회피불가 산대 회피불가
 			// 21
 		else if (e == 2 && com == 3 && user.oil > 0) {
 			System.out.println("회피기동을 시도합니다.");
 			System.out.println("상대는 장전합니다.");
 			opposite.reload += 1;
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나 회피 상대 장전
 			// 22
 		else if (e == 2 && com == 3 && user.oil == 0) {
 			System.out.println("회피기동이 기름이 없어서 실패했습니다.");
 			System.out.println("상대는 장전하여 더강한 공격력을 보유합니다.");
 			opposite.reload += 1;
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나 회피불가 상대 장전
 			// 23
 		else if (e == 3 && com == 1 && opposite.reload > 0) {
@@ -339,12 +292,9 @@ public class Unit  {
 			System.out.println("상대는 발포합니다.");
 			System.out.println("걍 쳐 맞으세여");
 			user.reload += 1;
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			user.hp -= (opposite.atk * user.reload);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			user.hp -= (opposite.atk * opposite.reload);
+			System.out.println(opposite.atk);
+			battle_txt(user, opposite);
 			opposite.reload = 0;
 		} // 나 장전 상대 발싸
 			// 24
@@ -352,11 +302,7 @@ public class Unit  {
 			System.out.println("장전을 합니다.");
 			System.out.println("상대는 장전의 중요성을 모르는 모양입니다.");
 			user.reload += 1;
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나 장전 상대 발포실패
 			// 25
 		else if (e == 3 && com == 2 && opposite.oil > 0) {
@@ -364,23 +310,15 @@ public class Unit  {
 			System.out.println("상대는 회피기동을 합니다.");
 			System.out.println("상대는 기름을 허공에 뿌렸습니다.");
 			user.reload += 1;
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
 			opposite.oil -= 1;
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나 장전 상대 회피
 			// 26
 		else if (e == 3 && com == 2 && opposite.oil == 0) {
 			System.out.println("장전을 합니다.");
 			System.out.println("상대는  기름도 없는데 회피기동을 시도합니다.");
 			user.reload += 1;
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나장전 산대 회피 실패
 			// 27
 		else if (e == 3 && com == 3) {
@@ -388,16 +326,12 @@ public class Unit  {
 			System.out.println("상대방도 장전합니다.");
 			user.reload += 1;
 			opposite.reload += 1;
-			System.out.println("서로의 장전횟수");
-			System.out.println("내꺼 : " + user.reload + "컴퓨터꺼 : " + opposite.reload);
-			System.out.println("서로의 회피가능 횟수");
-			System.out.println("내꺼" + user.oil + "상대꺼" + opposite.oil);
-			System.out.println("내꺼 hp : " + user.hp + "컴퓨터꺼 hp : " + opposite.hp);
+			battle_txt(user, opposite);
 		} // 나장전 상대 장전
 
 	}
 
-	public static void battle_choice(Unit user, Unit opposite) {
+	public static void battle_choice(Unit opposite) {
 		System.out.println("오우 야생의" + opposite.name + "을 만났습니다.");
 		System.out.println("");
 		System.out.println("1 : 기본 공격                    2 : 특수 공격");
@@ -440,14 +374,143 @@ public class Unit  {
 			user.hp_ += 50;
 			user.hp = user.hp_;
 			user.atk = user.atk_ + 50;
-			user.power = user.power+1;
+			user.power = user.power + 1;
 			opposite.atk += 10;
 			opposite1.atk += 10;
-			System.out.println("자재잔량 " + user.tr + "체력" +user.hp + " 공격력 " + user.atk);
+			System.out.println("자재잔량 " + user.tr + "체력" + user.hp + " 공격력 " + user.atk);
 		} else {
 			System.out.println("자제가 부족합니다.");
 		}
 
+	}
+
+	public static void subattact(Destroyer u, Unit o) {
+		if (u.sub > 0) {
+			u.sub--;
+			System.out.println("어뢰를 발사합니다. ");
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("어뢰잔량" + u.sub);
+			Random random11 = new Random();
+			int data1 = random11.nextInt(4) + 1;
+			if (data1 == 1) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("어뢰가 적중합니다.");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("적탄실에 적중했습니다!!!!");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("유폭이 발생했습니다!!!!!!!!!!");
+				o.hp = o.hp - 450;
+				if (o.hp < 0) {
+					o.hp = 0;
+				}
+				System.out.println("적 함선 : " + o.hp);
+			} else if (data1 == 2) {
+				System.out.println("어뢰가 영~ 좋지 못한 곳을 스칩니다.");
+				System.out.println("대미지는 입어드릴께요");
+				o.hp = o.hp - 100;
+				if (o.hp < 0) {
+					o.hp = 0;
+				}
+				System.out.println("적 함선 : " + o.hp);
+			} else if (data1 == 3) {
+				System.out.println("적은 현란한 무빙으로 어뢰를 피해갑니다.");
+				System.out.println("단 1의 피해도 입히지 못하였습니다.");
+			} else if (data1 == 4) {
+				System.out.println("해류가 심해서 어뢰가 모두 잘못된 방향으로 나갑니다.");
+				System.out.println("적 합선이 당신의 조준실력에 비웃음을 보냅니다.");
+			}
+
+		} else if (u.sub <= 0) {
+			System.out.println("어뢰의 잔량이 없습니다.");
+		}
+
+	}
+
+	public static void plainFihgt(Cruiser u, Unit o) {
+		if (u.plain > 0) {
+			u.plain--;
+			System.out.println("함제기 발진!!!!! ");
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("잔여 함제기" + u.plain);
+			Random random11 = new Random();
+			int data11 = random11.nextInt(4) + 1;
+			if (data11 == 1) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("어뢰가 적중합니다.");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("적탄실에 적중했습니다!!!!");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("유폭이 발생했습니다!!!!!!!!!!");
+				o.hp = o.hp - 450;
+				if (o.hp < 0) {
+					o.hp = 0;
+				}
+				System.out.println("적 함선 : " + o.hp);
+				u.plainCount++;
+
+			} else if (data11 == 2) {
+				System.out.println("어뢰가 영~ 좋지 못한 곳을 스칩니다.");
+				System.out.println("대미지는 입어드릴께요");
+				o.hp = o.hp - 100;
+				if (o.hp < 0) {
+					o.hp = 0;
+				}
+				System.out.println("적 함선 : " + o.hp);
+				u.plainCount++;
+
+			} else if (data11 == 3) {
+				System.out.println("적은 현란한 무빙으로 어뢰를 피해갑니다.");
+				System.out.println("단 1의 피해도 입히지 못하였습니다.");
+
+			} else if (data11 == 4) {
+				System.out.println("해류가 심해서 어뢰가 모두 잘못된 방향으로 나갑니다.");
+				System.out.println("적 합선이 당신의 조준실력에 비웃음을 보냅니다.");
+
+			}
+
+		} else if (u.plain <= 0) {
+			System.out.println("탑제 합제기 수가 부족합니다.");
+		}
 	}
 
 	public static void tutorial(Unit user) {
@@ -463,10 +526,11 @@ public class Unit  {
 		System.out.println("1. 하겠습니다.       2. 좀 더 실력을 쌓겠습니다.");
 
 	}
+
 	public static void air_craft(Unit user) {
 		System.out.println("오우 이런 비밀을 들키다니 ");
 		System.out.println("항공모함이 해금되었습니다.");
-		
+
 	}
 
 	public static void reset(Unit user) {
@@ -475,10 +539,10 @@ public class Unit  {
 		user.oil = user.oil_;
 		user.reload = 0;
 		user.dead = true;
-		
+
 	}
 
-	public static void die(Unit user1,Unit user2) {
+	public static void die(Unit user1, Unit user2) {
 		System.out.println("터어어어어어어어어어어어어어어어어어어어얼렸군요.");
 		System.out.println("조금 강화해 드릴테니 가서 일봐.");
 		user1.hp = user1.hp_ + 10;
@@ -490,7 +554,5 @@ public class Unit  {
 		user2.oil = user2.oil_;
 		user2.dead = true;
 	}
-
-	
 
 }
